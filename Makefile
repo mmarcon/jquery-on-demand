@@ -15,7 +15,10 @@
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-.PHONY: all
+.PHONY: all example
 
 all:
 	./scripts/closurize.sh
+
+example:
+	./scripts/runexample.sh
