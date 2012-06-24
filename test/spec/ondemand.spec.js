@@ -80,6 +80,20 @@ describe('jQuery OnDemand', function(){
 		expect($.onDemand.fn2script('foo')).toEqual('my/path/123456/ondemand-foo.js');
 	});
 
+	it('Preloads a script', function(){
+		//jQuery getScript mock
+		$.getScript = function(){
+			var deferred = $.Deferred();
+			deferred.resolve();
+			return deferred.promise();
+		};
+		spyOn($, 'getScript').andCallThrough();
+
+		$.onDemand.preload('foo');
+
+		expect($.getScript).toHaveBeenCalledWith('foo-ondemand.js');
+	});
+
 	it('Tries to retrieve the script when a function is called for the first time', function(){
 		//jQuery getScript mock
 		$.getScript = function(){
