@@ -1,0 +1,14 @@
+{
+  "name": "on-demand-builder",
+  "version": "0.0.0",
+  "main": "ondemand-builder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Massimiliano Marcon",
+  "license": "MIT",
+  "description": "This tool builds a set of `*-ondemand.js` files and a default configuration for jQuery OnDemand given a normal javascript file that has been annotated.",
+  "dependencies": {
+    "wrench": "1.3.8"
+  }
+}

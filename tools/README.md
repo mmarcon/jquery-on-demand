@@ -10,15 +10,13 @@ This tool builds a set of `*-ondemand.js` files and a default configuration for 
 	
 Includes the block of lines that follow it in each of the `*-ondemand.js` files.
 
-	// @group <GROUP NAME> (OPTIONAL)
-	// @function <FUNCTION NAME>
+	// @function (group=<GROUP NAME>) <FUNCTION NAME>
 	/*Block of code*/
 	// @endfunction
 	
 A function is considered as a unit, and may potentially be the only piece of code contained in a `*-ondemand.js` file. If a group is specified, objects and functions of the same group will be contained in the same `*-ondemand.js` file.
 
-	// @group <GROUP NAME> (OPTIONAL)
-	// @object <OBJECT NAME>
+	// @object (group=<GROUP NAME>) <OBJECT NAME>
 	/*Block of code*/
 	// @endobject
 	
