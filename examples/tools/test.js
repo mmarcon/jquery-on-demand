@@ -1,5 +1,8 @@
 // @all
-//define namespace
+//define namespace for my code
+//later on I will make all my functions and objects part of this.
+//this comment is just to show that comments are kept when
+//this file is split in components loade on demand.
 var TEST = TEST || {};
 // @endall
 
