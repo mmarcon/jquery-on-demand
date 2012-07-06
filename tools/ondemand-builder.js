@@ -19,15 +19,16 @@ var model = {
 var annotationsHandler = function (input, callback) {
     var annotationsAndOptions = /\/\/\s@(.+)\n((?:.+\n)+)\/\/\s@end(.+)/gm,
         attributes = /\((.+)\)/g,
-        result, att, match = {}, attArray;
+        result, att, match = {}, attArray,
+        attrHandler = function(e){
+            var av = e.split('=');
+            match.attributes = match.attributes || [];
+            match.attributes.push({attr: av[0], value: av[1]});
+        };
     while ((result = annotationsAndOptions.exec(input))) {
         while ((att = attributes.exec(result[1]))) {
             attArray = att[1].split(',');
-            attArray.forEach(function(e){
-                var av = e.split('=');
-                match.attributes = match.attributes || [];
-                match.attributes.push({attr: av[0], value: av[1]});
-            });
+            attArray.forEach(attrHandler);
         }
         match.code = result[2];
         match.role = result[1].split(' ')[0];
@@ -37,7 +38,7 @@ var annotationsHandler = function (input, callback) {
         //Reset match
         match = {};
     }
-}
+};
 
 fs.readFile(input, function(err, content) {
     var toBeParsed, units = [], model = {}, g, data, nss;
@@ -71,7 +72,7 @@ fs.readFile(input, function(err, content) {
         }
     });
     
-    if (fs.existsSync(outputFolder)) {
+    if (path.existsSync(outputFolder)) {
         wrench.rmdirSyncRecursive(outputFolder, false);
     }
     fs.mkdirSync(outputFolder);
@@ -92,5 +93,4 @@ fs.readFile(input, function(err, content) {
         data += '})();';
         fs.writeFileSync(outputFolder + '/' + g + '-ondemand.js', data);
     }
-
 });

@@ -24,7 +24,7 @@ TEST.foo = function(options){
 // @object (name=component,namespace=TEST)
 TEST.component = {
     init: function(){
-        console.log('TEST.component::init')
-    };
+        console.log('TEST.component::init');
+    }
 };
 // @endobject
