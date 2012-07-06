@@ -71,17 +71,20 @@ fs.readFile(input, function(err, content) {
                 model.groups[group].push({code: u.code, name: name, ns: namespace});
         }
     });
+
     
     if (path.existsSync(outputFolder)) {
         wrench.rmdirSyncRecursive(outputFolder, false);
     }
     fs.mkdirSync(outputFolder);
 
+    var matchingFn = '$.onDemand.setOptions({fn2script:function(fn){switch(fn){\n', matchingFnCase = 'case \'{CASE}\': return \'{WHAT}\'; break;\n';
     for (g in model.groups) {
         data = model.all ? model.all.join('\n') : '';
         nss = [];
         model.groups [g].forEach(function(o){
             data += o.code + '\n';
+            matchingFn += matchingFnCase.replace(/\{CASE\}/, o.name).replace(/\{WHAT\}/, outputFolder + '/' + g + '-ondemand.js');
             if (nss.indexOf(o.ns) === -1) {
                 nss.push(o.ns);
             }
@@ -89,8 +92,11 @@ fs.readFile(input, function(err, content) {
         data += '(function(){';
         nss.forEach(function(ns){
             data += '$.onDemand.registerAll('+ns+');';
-        })
+        });
         data += '})();';
+        
         fs.writeFileSync(outputFolder + '/' + g + '-ondemand.js', data);
     }
+    matchingFn += '}}});';
+    console.log(matchingFn);
 });
