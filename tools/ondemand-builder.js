@@ -58,7 +58,7 @@ fs.readFile(input, function(err, content) {
                 break;
             case 'function':
             case 'object':
-                group = 'ungrouped';
+                group = null;
                 name = 'unnamed';
                 namespace = 'window';
                 u.attributes.forEach(function(a){
@@ -66,6 +66,7 @@ fs.readFile(input, function(err, content) {
                     else if (a.attr === 'name') name = a.value;
                     else if (a.attr === 'namespace') namespace = a.value;
                 });
+                group =  group || name;
                 model.groups = model.groups || {};
                 model.groups[group] = model.groups[group] || [];
                 model.groups[group].push({code: u.code, name: name, ns: namespace});
@@ -98,5 +99,16 @@ fs.readFile(input, function(err, content) {
         fs.writeFileSync(outputFolder + '/' + g + '-ondemand.js', data);
     }
     matchingFn += '}}});';
+
+
+    //Make copy of plugin
+    var inStr = fs.createReadStream('../dist/jquery.on.demand.min.js'),
+        outStr = fs.createWriteStream(outputFolder + '/jquery.on.demand.min.js');
+    inStr.pipe(outStr, {end: false});
+
+    inStr.on("end", function() {
+        outStr.write('\n\n' + matchingFn);
+    });
+
     console.log(matchingFn);
 });
