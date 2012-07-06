@@ -102,7 +102,7 @@ fs.readFile(input, function(err, content) {
 
 
     //Make copy of plugin
-    var inStr = fs.createReadStream('../dist/jquery.on.demand.min.js'),
+    var inStr = fs.createReadStream(path.dirname(executable) + '/../dist/jquery.on.demand.min.js'),
         outStr = fs.createWriteStream(outputFolder + '/jquery.on.demand.min.js');
     inStr.pipe(outStr, {end: false});
 
@@ -110,5 +110,5 @@ fs.readFile(input, function(err, content) {
         outStr.write('\n\n' + matchingFn);
     });
 
-    console.log(matchingFn);
+    //console.log(matchingFn);
 });
