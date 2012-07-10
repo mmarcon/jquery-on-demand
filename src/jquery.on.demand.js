@@ -98,7 +98,7 @@
         return this.firstLoad(fn, args, context);
     };
     P.use = function(object){
-        return firstLoad(object);
+        return this.firstLoad(object);
     };
     P.register = function(name, fn){
         if (isFn(fn) || isObj(fn)) {
@@ -124,7 +124,7 @@
 
     isObj = function(what) {
         return typeof what === 'object';
-    }
+    };
 
     $[pluginName] = getInstance();
 
