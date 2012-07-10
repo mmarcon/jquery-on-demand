@@ -25,7 +25,8 @@
         defaults = {
             fn2script: function(fn) {
                 return fn + '-ondemand.js';
-            }
+            },
+            jqueryPlugin: false
         },
         OnDemand,
         P, getInstance, isFn, isObj,
@@ -37,9 +38,12 @@
         this._defaults = defaults;
         this._name = pluginName;
         this._version = version;
-        this._proxy = {};
 
-        
+        this._proxy = {};
+        if (this.options.jqueryPlugin) {
+            this._proxy = $.fn;
+        }
+
         that = this;
     };
 
@@ -78,6 +82,9 @@
 
     P.setOptions = function(options){
         this.options = $.extend( {}, defaults, options);
+        if (this.options.jqueryPlugin) {
+            this._proxy = $.fn;
+        }
     };
 
     P.resetOptions = function(){
