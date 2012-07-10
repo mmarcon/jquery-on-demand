@@ -24,7 +24,7 @@
         version = '0.1',
         defaults = {
             fn2script: function(fn) {
-                return fn + '-ondemand.js'
+                return fn + '-ondemand.js';
             }
         },
         OnDemand,
