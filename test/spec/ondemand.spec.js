@@ -137,5 +137,24 @@ describe('jQuery OnDemand', function(){
 
 		expect(gaaa).toHaveBeenCalledWith('foo', 'bar');
 	});
+
+	it('Provides a remote object asynchronously on demand', function(){
+		var obj = {
+			rockIt: jasmine.createSpy('rockIt!')
+		};
+		//jQuery getScript mock
+		$.getScript = function(){
+			$.onDemand._proxy.obj = obj;
+			var deferred = $.Deferred();
+			deferred.resolve();
+			return deferred.promise();
+		};
+
+		var promise = $.onDemand.use('obj');
+		promise.done(function(o){
+			o.rockIt();
+		});
+		expect(obj.rockIt).toHaveBeenCalled();
+	});
 	
 });
