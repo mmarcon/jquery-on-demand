@@ -69,7 +69,7 @@
                 else if (isObj(that._proxy[fn])) {
                     rv = that._proxy[fn];
                 }
-                else if (this.options.jqueryPlugin) {
+                else if (that.options.jqueryPlugin) {
                     rv = $.fn[fn].apply(context, args);
                 }
                 deferred.resolve(rv);
@@ -78,6 +78,20 @@
             });
         }
         return deferred.promise();
+    };
+
+    P.internalPreload = function(fn) {
+        var script = this.fn2script(fn);
+
+        if (isFn(that._proxy[fn])) {
+            return;
+        }
+        else {
+            if (!script) {
+                return;
+            }
+            $.getScript(script);
+        }
     };
 
     P.setOptions = function(options){
@@ -96,7 +110,7 @@
     //@endForTest
 
     P.preload = function(fn){
-        this.firstLoad(fn);
+        this.internalPreload(fn);
     };
     P.invoke = function(fn, args, context){
         return this.firstLoad(fn, args, context);

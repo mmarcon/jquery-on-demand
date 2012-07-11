@@ -5,8 +5,8 @@
 
 	functions.forEach(function(f){
 		$.fn[f] = function(){
-			console.log(f, arguments);
-			$.onDemand.invoke(f, this, arguments);
+			$.onDemand.invoke(f, arguments, this);
+			return this;
 		};
 	});
 
@@ -14,8 +14,9 @@
 		fn2script: function(fn){
 			return 'development-bundle/ui/minified/jquery.ui.' + fn + '.min.js';
 		},
-		jqueryPlugin: false
+		jqueryPlugin: true
 	});
 
 	$.onDemand.preload('core');
+	$.onDemand.preload('widget');
 })();

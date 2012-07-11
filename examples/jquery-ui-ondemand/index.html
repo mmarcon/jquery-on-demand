@@ -16,28 +16,25 @@
 			$(window).load(function(){
 
 				// Accordion
-				$("#accordion").accordion({ header: "h3" });
+				$("#accordion").accordion({ header: "h3" }).fadeTo(0, 0.8);
 
 				// Tabs
 				$('#tabs').tabs();
 
-				// Dialog
-				$('#dialog').dialog({
-					autoOpen: false,
-					width: 600,
-					buttons: {
-						"Ok": function() {
-							$(this).dialog("close");
-						},
-						"Cancel": function() {
-							$(this).dialog("close");
-						}
-					}
-				});
-
 				// Dialog Link
 				$('#dialog_link').click(function(){
-					$('#dialog').dialog('open');
+					// Dialog
+					$('#dialog').dialog({
+						width: 600,
+						buttons: {
+							"Ok": function() {
+								$(this).dialog("close");
+							},
+							"Cancel": function() {
+								$(this).dialog("close");
+							}
+						}
+					});
 					return false;
 				});
 
