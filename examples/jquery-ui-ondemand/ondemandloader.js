@@ -1,8 +1,6 @@
 (function(){
 	var functions = ['accordion', 'dialog', 'tabs', 'datepicker', 'slider', 'progressbar'];
 
-	//$('.myclass').dialog(options);
-
 	functions.forEach(function(f){
 		$.fn[f] = function(){
 			$.onDemand.invoke(f, arguments, this);

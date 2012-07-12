@@ -15,10 +15,13 @@
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-.PHONY: all example
+.PHONY: all example jqueryui
 
 all:
 	./scripts/closurize.sh
 
 example:
-	./scripts/runexample.sh
+	./scripts/runexample.sh basic
+
+jqueryui:
+	./scripts/runexample.sh jquery-ui-ondemand

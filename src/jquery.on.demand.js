@@ -40,9 +40,6 @@
         this._version = version;
 
         this._proxy = {};
-        if (this.options.jqueryPlugin) {
-            this._proxy = $.fn;
-        }
 
         that = this;
     };
@@ -72,6 +69,15 @@
                 else if (isObj(that._proxy[fn])) {
                     rv = that._proxy[fn];
                 }
+                else if (that.options.jqueryPlugin) {
+                    //I am loading on demand a jQuery plugin:
+                    //this means that once the code is parsed it will add
+                    //itself to jQuery's prototype, thus replacing the stub
+                    //functions that where initially provided. Therefore
+                    //on-demand won't be called again when that particular plugin
+                    //or function is invoked.
+                    rv = $.fn[fn].apply(context, args);
+                }
                 deferred.resolve(rv);
             }).fail(function(){
                 deferred.reject('OnDemand failed to load script '  + script);
@@ -80,11 +86,22 @@
         return deferred.promise();
     };
 
+    P.internalPreload = function(fn) {
+        var script = this.fn2script(fn);
+
+        if (isFn(that._proxy[fn])) {
+            return;
+        }
+        else {
+            if (!script) {
+                return;
+            }
+            $.getScript(script);
+        }
+    };
+
     P.setOptions = function(options){
         this.options = $.extend( {}, defaults, options);
-        if (this.options.jqueryPlugin) {
-            this._proxy = $.fn;
-        }
     };
 
     P.resetOptions = function(){
@@ -99,7 +116,7 @@
     //@endForTest
 
     P.preload = function(fn){
-        this.firstLoad(fn);
+        this.internalPreload(fn);
     };
     P.invoke = function(fn, args, context){
         return this.firstLoad(fn, args, context);
