@@ -61,7 +61,7 @@ Typically called in a self-invoking function at the end of a javascript file loa
 	})();
 
 ## Tools
-The **[tools](https://github.com/mmarcon/jquery-on-demand/tree/master/tools)** directory included a nice building script (requires Node.js) that creates the `*-ondemand.js` files and related loading functions from a properly annotated JavaScript file. The tool is still in early stage and needs to be improved and become smarted but it gets the job done.
+The **[tools](https://github.com/mmarcon/jquery-on-demand/tree/master/tools)** directory included a nice building script (requires Node.js) that creates the `*-ondemand.js` files and related loading functions from a properly annotated JavaScript file. The tool is still in early stage and needs to be improved and become smarter but it gets the job done.
 
 
 ## Examples
