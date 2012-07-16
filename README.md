@@ -59,3 +59,12 @@ Typically called in a self-invoking function at the end of a javascript file loa
 		//into it become available for invocation.
 		$.onDemand.registerAll(UI);
 	})();
+
+## Tools
+The **[tools](https://github.com/mmarcon/jquery-on-demand/tree/master/tools)** directory included a nice building script (requires Node.js) that creates the `*-ondemand.js` files and related loading functions from a properly annotated JavaScript file. The tool is still in early stage and needs to be improved and become smarted but it gets the job done.
+
+
+## Examples
+* `basic` contains a very simple photo gallery that loads the code to switch phot on demand.
+* `jquery-ui-ondemand` shows how to easily load jQueryUI widgets on demand so the code is downloaded only when required.
+* `tools` contains a simple test file that can be passed through the building tool to obtain all the necessary code to load functions and objects on demand.
