@@ -79,7 +79,8 @@ fs.readFile(input, function(err, content) {
     }
     fs.mkdirSync(outputFolder);
 
-    var matchingFn = '$.onDemand.setOptions({fn2script:function(fn){switch(fn){\n', matchingFnCase = 'case \'{CASE}\': return \'{WHAT}\'; break;\n';
+    var matchingFn = '$.onDemand.setOptions({fn2script:function(fn){switch(fn){\n', matchingFnCase = 'case \'{CASE}\': return \'{WHAT}\'; break;\n',
+        sizeFnTemplate = '(function(){$.onDemand.hasSize({SIZE})})();', sizeFn;
     for (g in model.groups) {
         data = model.all ? model.all.join('\n') : '';
         nss = [];
@@ -94,7 +95,11 @@ fs.readFile(input, function(err, content) {
         nss.forEach(function(ns){
             data += '$.onDemand.registerAll('+ns+');';
         });
-        data += '})();';
+        data += '})();\n';
+
+        //Inception...
+        sizeFn = sizeFnTemplate.replace(/\{SIZE\}/, data.length + sizeFnTemplate.length - 6 + (''+data.length).length);
+        data += sizeFn;
         
         fs.writeFileSync(outputFolder + '/' + g + '-ondemand.js', data);
     }

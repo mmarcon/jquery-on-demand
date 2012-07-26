@@ -137,6 +137,10 @@
             }
         }
     };
+    P.hasSize = function(sizeInBytes){
+        //Nothing yet, just...
+        $.noop();
+    };
 
     getInstance = function(options) {
         return new OnDemand(options);
